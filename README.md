@@ -1,3 +1,117 @@
+# Redux
+
+Redux follow 4 steps 👇
+
+1. Store 
+2. Action
+3. Reducer
+4. Dispatch
+
+
+### Action 
+Action is actually description or derection of what should do in a certain moment.Its not a actual function.
+
+Example : 🤷
+
+```js
+
+export const increment = () => {
+    return {
+        type: 'INCREMENT'
+    }
+}
+
+export const decrement = () => {
+    return {
+        type: 'DECREMENT'
+    }
+}
+```
+
+This description will called by dispatch and app will find Increment reducer and Decrement reducer from app and work as it's said in reducer.
+
+### Reducer 
+It's actually function like - 
+
+`counter reducer for increment and decrement`
+```js
+const counterReducer = (state=0,action) => {
+
+    switch (action.type){
+        case 'INCREMENT':
+            return state + 1
+        case 'DECREMENT':
+            return state - 1
+        default:
+            return state
+        
+    }
+
+}
+
+
+export default counterReducer;
+```
+### Store 
+You have to store or combine your all reducer for dispatching 
+
+Example : 🤷
+
+```js
+import counterReducer from "./counter";
+import isloggedReducer from "./islogged";
+
+//for combining 2 reducers;;;;;;
+import { combineReducers } from 'redux';
+
+
+
+const allReducers = combineReducers({
+    counterReducer : counterReducer,
+    isloggedReducer : isloggedReducer
+})
+
+
+export default allReducers;
+```
+
+### And finnaly dispatch 
+
+```js
+import { useSelector,useDispatch } from 'react-redux'
+
+import { increment,decrement } from './actions';
+
+
+function App() {
+
+  const counter = useSelector(state => state.counterReducer);
+  console.log(counter)
+  const dispatch = useDispatch()
+  return (
+    <div className="App">
+      <h1>hello</h1>
+      <h1> count : {counter}</h1>
+      <button onClick={() => dispatch(increment())}>+</button>
+      <button onClick={() => dispatch(decrement())}>-</button>
+
+    </div>
+  );
+}
+
+export default App;
+```
+### Code output
+![image](https://user-images.githubusercontent.com/56468488/131805068-36347605-6965-48ce-9b4b-2acb9863745a.png)
+
+
+
+
+
+---
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
